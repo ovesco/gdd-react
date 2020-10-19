@@ -1,9 +1,9 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { useGlobal } from 'reactn';
 import styled from 'styled-components';
 
 import { Node } from '../../global';
-import useSvgDimensions from '../../hooks/useSVGDimensions';
+import useNodeMatchingEvents from '../../hooks/useNodeMatchingEvents';
 
 type Props = {
   node: Node;
@@ -20,11 +20,16 @@ const NodeNameText = styled.text`
   font-family: 'Roboto', sans-serif;
 `;
 
+const NameGroup = styled.g`
+  transition: opacity .2s;
+`;
+
 const NodeWrapper: React.FunctionComponent<Props> = ({ node, x, y, children }) => {
 
   const textRef = useRef<SVGTextElement>(null);
   const [textWidth, setTextWidth] = useState(0); // height = 14
   const [showNames] = useGlobal('showNodeNames');
+  const [nodeHidden] = useNodeMatchingEvents(node.nodeId);
 
   useEffect(() => {
     if (textRef.current) {
@@ -33,7 +38,7 @@ const NodeWrapper: React.FunctionComponent<Props> = ({ node, x, y, children }) =
   }, [textRef.current, showNames]);
   
   return (
-    <g transform={`translate(${x}, ${y})`}>
+    <NameGroup transform={`translate(${x}, ${y})`} style={{ opacity: nodeHidden ? 0.2 : 1 }}>
       {children}
       {showNames && (
         <>
@@ -41,7 +46,7 @@ const NodeWrapper: React.FunctionComponent<Props> = ({ node, x, y, children }) =
           <NodeNameText ref={textRef} x={-(textWidth / 2)} y={19}>{node.nodeId}</NodeNameText>
         </>
       )}
-    </g>
+    </NameGroup>
   );
 };
 

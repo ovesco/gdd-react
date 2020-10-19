@@ -23,7 +23,8 @@ const Map: React.FunctionComponent = () => {
       container: container.current as HTMLDivElement,
       style: 'mapbox://styles/sysmoh/ckg2d1on80lsn19qhenzr02m4',
       center: [6.634626388549805, 46.524914365934364],
-      zoom: 12
+      zoom: 12,
+      doubleClickZoom: false,
     }));
   }, []);
   

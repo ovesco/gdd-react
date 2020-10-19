@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import { Node } from '../../global';
 import MVLayer from './MVLayer';
 import LVLayer from './LVLayer';
+import MapWatcher from './MapWatcher';
+import NodeMenuLayer from './NodeMenu/NodeMenuLayer';
 
 type Props = {
   map: mapboxgl.Map;
@@ -52,6 +54,8 @@ class D3Layer extends React.Component<Props> {
               <LVLayer map={map} />
             </Route>
           </Switch>
+          <NodeMenuLayer map={map} />
+          <MapWatcher map={map} />
         </D3SVG>
       </>
     );

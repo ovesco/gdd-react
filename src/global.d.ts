@@ -1,4 +1,7 @@
+import { IconType } from 'react-icons/lib';
 import 'reactn';
+
+import { Event } from './events';
 
 export interface Node {
   type: 'mv' | 'lv';
@@ -28,5 +31,9 @@ declare module 'reactn/default' {
   export interface State {
     mvNodes: Node[];
     showNodeNames: boolean;
+    events: Event[];
+    highlightedEvent: string | null;
+    nodeMenu: Node | null;
+    lvTopologyMode: boolean;
   }
 }

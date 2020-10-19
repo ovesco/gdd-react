@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
 
 import { Node } from '../../global';
-import MVNode from './MVNode';
+import NodePin from './NodePin';
 import NodeWrapper from './NodeWrapper';
 
 type Props = {
@@ -11,13 +11,18 @@ type Props = {
 };
 
 const MVLayer: React.FunctionComponent<Props> = ({ nodes, map }) => {
+
+  useEffect(() => {
+    map.zoomTo(12);
+  }, []);
+
   return (
     <>
-      {nodes.filter(it => it.nodeId === 'mv-18').map((it) => {
+      {nodes.map((it) => {
         const { x, y } = map.project([it.lng, it.lat]);
         return (
           <NodeWrapper node={it} x={x} y={y} key={it.nodeId}>
-            <MVNode node={it} />
+            <NodePin node={it} color="#34a853" />
           </NodeWrapper>
         );
       })}
