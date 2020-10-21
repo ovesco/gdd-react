@@ -19,10 +19,7 @@ const Overlay = styled.div`
   z-index: 1000;
 `;
 
-const OverlayContent = styled.div`
-  height: 15rem;
-  background: white;
-`;
+const OverlayContent = styled.div``;
 
 const MapOverlay: React.FunctionComponent<Props> = ({ map }) => {
 
@@ -38,12 +35,22 @@ const MapOverlay: React.FunctionComponent<Props> = ({ map }) => {
   return (
     <Overlay className="fixed">
       <div className="flex">
-        <OverlayContent className="flex-1 mr-2 rounded shadow">
-          <EventList title="Current events">
-            {displayedEvents.map(it => <Event event={it} key={it.eventId} onMouseOver={() => setHighlightedEvent(it.eventId)} onMouseOut={() => setHighlightedEvent(null)} />)}
-          </EventList>
-        </OverlayContent>
-        <MapControls map={map} />
+        <div className="flex-1 mr-2">
+          <div>
+            <div>
+              <EventList title="Current events">
+                {displayedEvents.map(it => <Event event={it} key={it.eventId} onMouseOver={() => setHighlightedEvent(it.eventId)} onMouseOut={() => setHighlightedEvent(null)} />)}
+              </EventList>
+            </div>
+            <div className="mt-2">
+              <EventList title="Upcoming events">
+              </EventList>
+            </div>
+          </div>
+        </div>
+        <div>
+          <MapControls map={map} />
+        </div>
       </div>
     </Overlay>
   );

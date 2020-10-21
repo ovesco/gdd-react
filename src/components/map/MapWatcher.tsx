@@ -21,8 +21,12 @@ const LVLayer: React.FunctionComponent<Props> = ({ map }) => {
     mapCanvas.style.transition = 'opacity .3s';
     if (topologyMode) {
       mapCanvas.style.opacity = '0.1';
+      map.scrollZoom.disable();
+      map.dragPan.disable();
     } else {
       mapCanvas.style.opacity = '1';
+      map.scrollZoom.enable();
+      map.dragPan.enable();
     }
   }, [topologyMode]);
 

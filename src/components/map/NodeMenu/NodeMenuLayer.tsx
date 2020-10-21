@@ -15,9 +15,11 @@ type Props = {
 const NodeMenuLayer: React.FunctionComponent<Props> = ({ map }) => {
 
   const history = useHistory();
-  const [node, setNodeMenu] = useGlobal('nodeMenu');
+  const [node] = useGlobal('nodeMenu');
+  const [detailNodeId, setDetailNodeId] = useGlobal('detailNodeId');
   const [events] = useGlobal('events');
   const move = useCallback(() => node ? history.push(`/mv/${node.nodeId}`) : null, [node]);
+  const showDetail = useCallback(() => node ? setDetailNodeId(node.nodeId) : null, [node, detailNodeId]);
   const matchingEvents = useMemo(() => {
     if (node) return events.filter((it) => it.mvNodes.includes(node.nodeId) || it.lvNodes.includes(node.nodeId));
     return [];
@@ -31,13 +33,13 @@ const NodeMenuLayer: React.FunctionComponent<Props> = ({ map }) => {
       return (
         <NodeMenu node={node}>
           <MenuButton i={0} icon={RiBubbleChartLine} text="Open bubble" onClick={move} />
-          <MenuButton i={1} icon={RiBarChartBoxLine} text="Show aggregated details" onClick={move} last={true} />
+          <MenuButton i={1} icon={RiBarChartBoxLine} text="Show aggregated details" onClick={showDetail} last={true} />
           {matchingEvents.map((it, i) => <MenuEvent key={it.eventId} event={it} i={i + 2} />)}
         </NodeMenu>
       )
     } else return (
       <NodeMenu node={node}>
-        <MenuButton i={0} icon={RiBarChartBoxLine} text="Show node details" onClick={move} last={true} />
+        <MenuButton i={0} icon={RiBarChartBoxLine} text="Show node details" onClick={showDetail} last={true} />
         {matchingEvents.map((it, i) => <MenuEvent key={it.eventId} event={it} i={i + 1} />)}
       </NodeMenu>
     )

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useMemo } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useGlobal } from 'reactn';
 import styled from 'styled-components';
 
@@ -9,6 +9,7 @@ type Props = {
   node: Node;
   x: number;
   y: number;
+  rotate?: number;
 }
 
 const TextContainer = styled.rect`
@@ -24,7 +25,7 @@ const NameGroup = styled.g`
   transition: opacity .2s;
 `;
 
-const NodeWrapper: React.FunctionComponent<Props> = ({ node, x, y, children }) => {
+const NodeWrapper: React.FunctionComponent<Props> = ({ node, x, y, rotate, children }) => {
 
   const textRef = useRef<SVGTextElement>(null);
   const [textWidth, setTextWidth] = useState(0); // height = 14
@@ -35,10 +36,10 @@ const NodeWrapper: React.FunctionComponent<Props> = ({ node, x, y, children }) =
     if (textRef.current) {
       setTextWidth(textRef.current.getBBox().width);
     }
-  }, [textRef.current, showNames]);
+  }, [textRef, showNames]);
   
   return (
-    <NameGroup transform={`translate(${x}, ${y})`} style={{ opacity: nodeHidden ? 0.2 : 1 }}>
+    <NameGroup transform={`translate(${x}, ${y}) ${rotate ? `, rotate(${rotate})`: ''}`} style={{ opacity: nodeHidden ? 0.2 : 1 }}>
       {children}
       {showNames && (
         <>

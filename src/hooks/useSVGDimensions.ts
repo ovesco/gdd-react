@@ -9,6 +9,6 @@ export default (ref: React.RefObject<SVGElement>) => {
       const { width, height } = ref.current.getBBox();
       setDim([width, height]);
     }
-  }, [ref.current]);
+  }, [ref]);
   return dim;
 };

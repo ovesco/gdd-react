@@ -1,5 +1,4 @@
-import React, { useRef } from 'react';
-import { useMemo } from 'reactn';
+import React, { useRef, useMemo } from 'react';
 import styled from 'styled-components';
 
 import { Node } from '../../../global';
@@ -11,7 +10,7 @@ type Props = {
 
 const MenuContainer = styled.rect`
   fill: white;
-  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.1));
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.1));
 `;
 
 const MenuTitle = styled.rect`

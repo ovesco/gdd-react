@@ -19,7 +19,6 @@ type Props = {
 const D3SVG = styled.svg<Partial<Props>>`
   width: ${props => props.width}px;
   height: ${props => props.height}px;
-  z-index: 1000;
 `;
 
 class D3Layer extends React.Component<Props> {
@@ -51,7 +50,7 @@ class D3Layer extends React.Component<Props> {
               <MVLayer nodes={nodes} map={map} />
             </Route>
             <Route path="/mv/:mvNodeId">
-              <LVLayer map={map} />
+              <LVLayer map={map} width={width} height={height} />
             </Route>
           </Switch>
           <NodeMenuLayer map={map} />

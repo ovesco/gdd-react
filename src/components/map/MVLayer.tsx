@@ -13,7 +13,7 @@ type Props = {
 const MVLayer: React.FunctionComponent<Props> = ({ nodes, map }) => {
 
   useEffect(() => {
-    map.zoomTo(12);
+    map.zoomTo(14);
   }, []);
 
   return (

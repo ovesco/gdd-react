@@ -8,7 +8,7 @@ type Props = {
 }
 
 const EventBG = styled.rect`
-  fill: white;
+  fill: #eee;
 `;
 
 const EventText = styled.text`
@@ -25,7 +25,7 @@ const MenuEvent: React.FunctionComponent<Props> = ({ event, i }) => {
     <g transform={`translate(0, ${(i*35) + i})`}>
       <EventBG width={250} height={35} />
       <rect width={240} height={25} x={5} y={5} rx={10} ry={10} fill={color} />
-      <line x1={0} y1={0} x2={250} y2={0} stroke="#eee" strokeWidth={1} />
+      <line x1={0} y1={35} x2={250} y2={35} stroke="#eee" strokeWidth={1} />
       <EventText x={40} y={22} pointer-events="none">{metadatas.name}</EventText>
     </g>
   );

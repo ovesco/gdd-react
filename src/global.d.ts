@@ -35,5 +35,7 @@ declare module 'reactn/default' {
     highlightedEvent: string | null;
     nodeMenu: Node | null;
     lvTopologyMode: boolean;
+    mapDimensions: [number, number];
+    detailNodeId: string | null;
   }
 }

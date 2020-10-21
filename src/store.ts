@@ -7,4 +7,6 @@ setGlobal({
   highlightedEvent: null,
   nodeMenu: null,
   lvTopologyMode: false,
+  mapDimensions: [0, 0],
+  detailNodeId: null,
 });

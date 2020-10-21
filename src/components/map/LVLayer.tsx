@@ -6,13 +6,16 @@ import mapboxgl from 'mapbox-gl';
 import { Bubble } from '../../global';
 import { useAsyncMemo } from '../../hooks/useAsyncMemo';
 import LVMapLayer from './LVMapLayer';
+import LVTopologyLayer from './LVTopologyLayer';
 import TopologyProvider from '../../assets/generator/TopologyProvider';
 
 type Props = {
   map: mapboxgl.Map;
+  width: number;
+  height: number;
 };
 
-const LVLayer: React.FunctionComponent<Props> = ({ map }) => {
+const LVLayer: React.FunctionComponent<Props> = ({ map, width, height }) => {
 
   const provider = new TopologyProvider();
   const { mvNodeId } = useParams() as any;
@@ -46,6 +49,9 @@ const LVLayer: React.FunctionComponent<Props> = ({ map }) => {
 
   if (subTopology === null) {
     return <>Loading</>;
+  }
+  if (topologyMode) {
+    return <LVTopologyLayer subTopology={subTopology} mappedSubTopology={mappedSubTopology} width={width} height={height} />
   } else {
     return (
       <LVMapLayer map={map} subTopology={subTopology} mappedSubTopology={mappedSubTopology} />

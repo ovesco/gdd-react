@@ -6,7 +6,7 @@ const useDimensions = (ref: React.RefObject<HTMLElement>) => {
     if (ref.current) {
       setDimensions([ref.current.clientWidth, ref.current.clientHeight]);
     }
-  }, [ref.current]);
+  }, [ref]);
 
   return dimensions;
 };
