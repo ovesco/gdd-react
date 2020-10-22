@@ -4,7 +4,7 @@ import { useDispatch, useGlobal } from 'reactn';
 
 import TopologyProvider from './assets/generator/TopologyProvider';
 import Map from './components/map/Map';
-import DetailView from './components/details/DetailView';
+import DetailView from './components/details/DetailViewContainer';
 
 function App() {
 

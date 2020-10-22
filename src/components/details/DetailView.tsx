@@ -1,54 +1,26 @@
-import React, { useMemo } from 'react';
-import styled from 'styled-components';
-import { useGlobal } from 'reactn';
-import { CSSTransition } from 'react-transition-group';
+import React, { useRef } from 'react';
 
-const DetailViewContainer = styled.div`
+import LVPredictionVerification from './LVPredictionVerification';
+import useDim from '../../hooks/useHTMLElementDimensions';
 
-  position: fixed;
-  top: 0;
-  width: 50vw;
-  height: 100vh;
-  right: 0vw;
-  opacity: 0;
-  z-index: 1000;
-  transform: translate(50vw, 0);
+type Props = {
+  nodeId: string;
+};
 
-  &.detail-view-enter {
-    opacity: 0;
-    transform: translate(50vw, 0);
-    transition: opacity .3s, transform .3s;
-  }
 
-  &.detail-view-enter-active,
-  &.detail-view-enter-done {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
+const DetailView: React.FunctionComponent<Props> = ({ nodeId }) => {
 
-  &.detail-view-exit {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-
-  &.detail-view-exit-active {
-    opacity: 0;
-    transform: translate(50vw, 0);
-    transition: opacity .3s, transform .3s;
-  }
-`;
-
-const DetailView: React.FunctionComponent = () => {
-
-  const [detailNodeId, setId] = useGlobal('detailNodeId');
-  console.log(detailNodeId);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dim = useDim(containerRef);
 
   return (
-    <CSSTransition in={detailNodeId !== null} timeout={300} classNames="detail-view">
-      <DetailViewContainer className="bg-white">
-        <button onClick={() => setId(null)}>close</button>
-      </DetailViewContainer>
-    </CSSTransition>
+    <div className="flex-1" ref={containerRef}>
+      {dim[0] > 0 && dim[1] > 0 && (
+        <>
+          <LVPredictionVerification nodeId={nodeId} height={dim[1] / 2} width={dim[0]} />
+        </>
+      )}
+    </div>
   )
 };
 

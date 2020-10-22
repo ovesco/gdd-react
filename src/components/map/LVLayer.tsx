@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import mapboxgl from 'mapbox-gl';
 
 import { Bubble } from '../../global';
-import { useAsyncMemo } from '../../hooks/useAsyncMemo';
+import useAsyncMemo from '../../hooks/useAsyncMemo';
 import LVMapLayer from './LVMapLayer';
 import LVTopologyLayer from './LVTopologyLayer';
 import TopologyProvider from '../../assets/generator/TopologyProvider';

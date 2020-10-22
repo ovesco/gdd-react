@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "d3": "^6.2.0",
+    "date-fns": "^2.16.1",
     "mapbox-gl": "^1.12.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -14,6 +15,7 @@
     "react-tooltip": "^4.2.10",
     "react-transition-group": "^4.4.1",
     "reactn": "^2.2.7",
+    "recharts": "^1.8.5",
     "styled-components": "^5.2.0",
     "tailwindcss": "^1.9.2",
     "typescript": "~3.7.2"
@@ -53,6 +55,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.6",
     "@types/react-transition-group": "^4.4.0",
+    "@types/recharts": "^1.8.16",
     "@types/styled-components": "^5.1.4",
     "node-sass": "^4.14.1",
     "postcss-cli": "^8.1.0"
