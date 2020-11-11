@@ -5,6 +5,7 @@ import mapboxgl from 'mapbox-gl';
 
 import { Bubble } from '../../global';
 import useAsyncMemo from '../../hooks/useAsyncMemo';
+import useReorderNodes from '../../hooks/useReorderNodes';
 import LVMapLayer from './LVMapLayer';
 import LVTopologyLayer from './LVTopologyLayer';
 import TopologyProvider from '../../assets/generator/TopologyProvider';

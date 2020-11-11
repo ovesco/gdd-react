@@ -32,7 +32,7 @@ const ButtonText = styled.text`
 const NodeMenu: React.FunctionComponent<Props> = ({ onClick, icon, text, i, last }) => {
   const Icon = icon;
 
-  const [n, setNodeMenu] = useGlobal('nodeMenu');
+  const [n, setNodeMenu] = useGlobal('nodeMenuId');
   const clicked = () => {
     if (onClick) {
       setNodeMenu(null);

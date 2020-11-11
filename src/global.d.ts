@@ -31,9 +31,10 @@ declare module 'reactn/default' {
   export interface State {
     mvNodes: Node[];
     showNodeNames: boolean;
+    showLines: boolean;
     events: Event[];
     highlightedEvent: string | null;
-    nodeMenu: Node | null;
+    nodeMenuId: string | null;
     lvTopologyMode: boolean;
     mapDimensions: [number, number];
     detailNodeId: string | null;

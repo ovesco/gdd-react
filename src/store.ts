@@ -3,6 +3,7 @@ import { setGlobal } from 'reactn';
 setGlobal({
   mvNodes: [],
   showNodeNames: true,
+  showLines: true,
   events: [],
   highlightedEvent: null,
   nodeMenu: null,

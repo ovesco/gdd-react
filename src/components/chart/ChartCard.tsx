@@ -6,7 +6,7 @@ type Props = {
 
 const ChartCard: React.FunctionComponent<Props> = ({ loading, children }) => {
   return (
-    <div className="bg-white rounded shadow m-3">
+    <div className="bg-white">
       {loading && (
         <div>Loading</div>
       )}

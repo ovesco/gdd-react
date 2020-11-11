@@ -15,6 +15,8 @@ export interface Event {
   mvNodes: string[];
   lvNodes: string[];
   lvLines: string[];
+  start: number;
+  end: number;
 }
 
 

@@ -29,11 +29,24 @@ class TopologyProvider {
     });
   
     for (let i = 1; i < lvAmount + 1; i++) {
+      let dist = 0.005;
+      if (i < 6) dist = 0.005;
+      else if (i < 21) dist = 0.01;
+      else dist = 0.015;
+
+      let angle = 0;
+      if (i < 6) angle = 5 - i;
+      else angle = 20 - i;
+
+      let tot = 0;
+      if (i < 6) tot = 5;
+      else tot = lvAmount - 6;
+
       lvNodes.push({
         type: 'lv',
         nodeId: `${node.nodeId}-lv-${i}`,
-        lat: node.lat + (Math.sin((360 / lvAmount * i) * Math.PI / 180) * Math.random() * 0.01 + 0.005),
-        lng: node.lng + (Math.cos((360 / lvAmount * i) * Math.PI / 180)* Math.random() * 0.01 + 0.005)
+        lat: node.lat + (Math.sin((360 / tot * angle) * Math.PI / 180) * (dist + (Math.random() * 0.005))),
+        lng: node.lng + (Math.cos((360 / tot * angle) * Math.PI / 180) * (dist + (Math.random() * 0.005)))
       });
     }
   

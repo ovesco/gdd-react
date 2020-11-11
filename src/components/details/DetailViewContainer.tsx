@@ -10,16 +10,16 @@ const Holder = styled.div`
 
   position: fixed;
   top: 0;
-  width: 50vw;
+  width: 960px;
   opacity: 0;
   height: 100vh;
   right: 0;
   z-index: 1000;
-  transform: translate(50vw, 0);
+  transform: translate(960px, 0);
 
   &.detail-view-enter {
     opacity: 0;
-    transform: translate(50vw, 0);
+    transform: translate(960px, 0);
     transition: opacity .3s, transform .3s;
   }
 
@@ -36,7 +36,7 @@ const Holder = styled.div`
 
   &.detail-view-exit-active {
     opacity: 0;
-    transform: translate(50vw, 0);
+    transform: translate(960px, 0);
     transition: opacity .3s, transform .3s;
   }
 `;
@@ -44,7 +44,6 @@ const Holder = styled.div`
 const DetailViewContainer: React.FunctionComponent = () => {
 
   const [detailNodeId, setId] = useGlobal('detailNodeId');
-  console.log(detailNodeId);
 
   return (
     <CSSTransition in={detailNodeId !== null} timeout={300} classNames="detail-view">
@@ -54,7 +53,7 @@ const DetailViewContainer: React.FunctionComponent = () => {
             <BiX className="text-2xl" />
           </div>
           <h2 className="text-2xl ml-3">
-            {detailNodeId}
+            {detailNodeId} - Prediction
           </h2>
         </div>
         {detailNodeId && (

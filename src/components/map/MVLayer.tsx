@@ -5,6 +5,9 @@ import { Node } from '../../global';
 import NodePin from './NodePin';
 import NodeWrapper from './NodeWrapper';
 
+import useReorderNodes from '../../hooks/useReorderNodes';
+import useFlyTo from '../../hooks/useFlyToNode';
+
 type Props = {
   map: mapboxgl.Map;
   nodes: Node[];
@@ -16,9 +19,13 @@ const MVLayer: React.FunctionComponent<Props> = ({ nodes, map }) => {
     map.zoomTo(14);
   }, []);
 
+  useFlyTo(map, nodes);
+
+  const orderedNodes = useReorderNodes(nodes);
+
   return (
     <>
-      {nodes.map((it) => {
+      {orderedNodes.map((it) => {
         const { x, y } = map.project([it.lng, it.lat]);
         return (
           <NodeWrapper node={it} x={x} y={y} key={it.nodeId}>

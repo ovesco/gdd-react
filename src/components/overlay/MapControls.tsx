@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useGlobal } from 'reactn';
 import ReactTooltip from 'react-tooltip';
-import { BiPlus, BiMinus, BiSend, BiDetail } from 'react-icons/bi';
+import { BiPlus, BiMinus, BiSend, BiText, BiHide } from 'react-icons/bi';
 import { CgListTree } from 'react-icons/cg';
 import styled from 'styled-components';
 import mapboxgl from 'mapbox-gl';
@@ -52,6 +52,7 @@ const CtrlButton: React.FunctionComponent<BtnProps> = (props) => {
 const MapControls: React.FunctionComponent<Props> = ({ map }) => {
 
   const [showNames, setShowNames] = useGlobal('showNodeNames');
+  const [showLines, setShowLines] = useGlobal('showLines');
   const [topologyMode, setTopologyMode] = useGlobal('lvTopologyMode');
   const nodeId = useRoutingMVNodeId();
 
@@ -73,14 +74,20 @@ const MapControls: React.FunctionComponent<Props> = ({ map }) => {
         </CtrlButton>
       </ButtonContainer>
       <ButtonContainer className="flex flex-col rounded shadow mt-2">
-        
         <CtrlButton onClick={() => setShowNames(!showNames)} tip="Toggle node names" top={true} bottom={nodeId === null}>
-          <BiDetail />
+          <BiText />
         </CtrlButton>
         {nodeId && (
-          <CtrlButton onClick={() => setTopologyMode(!topologyMode)} tip="Show Dendogram topology" bottom={true}>
-            <CgListTree />
-          </CtrlButton>
+          <>
+            {!topologyMode && (
+              <CtrlButton onClick={() => setShowLines(!showLines)} tip="Toggle lines">
+                <BiHide />
+              </CtrlButton>
+            )}
+            <CtrlButton onClick={() => setTopologyMode(!topologyMode)} tip="Show Dendogram topology" bottom={true}>
+              <CgListTree />
+            </CtrlButton>
+          </>
         )}
       </ButtonContainer>
       <ReactTooltip place="right" effect="solid" delayShow={300} />

@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
+import { useGlobal } from 'reactn';
 import styled from 'styled-components';
 import {
   tree,
@@ -27,6 +28,8 @@ const TopoPath = styled.path`
 
 const LVTopologyLayer: React.FunctionComponent<Props> = ({ subTopology, mappedSubTopology, width, height }) => {
 
+  const [nodeMenuId] = useGlobal('nodeMenuId');
+
   const radius = useMemo(() => {
     const val = Math.min(width, height);
     return (val / 2) - 50;
@@ -39,7 +42,7 @@ const LVTopologyLayer: React.FunctionComponent<Props> = ({ subTopology, mappedSu
 
     const mainRootNode = '__ROOT__';
     const nodeIds = Object.keys(mappedSubTopology);
-    const lines = subTopology.lvLines.map((it) => [it.target, it.source]); // current - parent
+    const lines = subTopology.lvLines.map((it) => [it.target, it.source, it.lineId]); // current - parent
     const lineChilds = lines.map((it) => it[0]);
     const roots = nodeIds.filter((it) => !lineChilds.includes(it));
     const additionalLinks = roots.length === 1
@@ -52,15 +55,18 @@ const LVTopologyLayer: React.FunctionComponent<Props> = ({ subTopology, mappedSu
     return treeGenerator(data);
   }, [subTopology, radius, mappedSubTopology]);
 
-  console.log(root.links());
-
+  const reorder = useCallback((nodes: any[], accessor: (n: any) => string) => nodes.sort((a, b) => accessor(a) === nodeMenuId ? 1 : -1), [nodeMenuId]);
+  console.log(reorder(root.descendants(), (it) => it.id));
   return (
     <g transform={`translate(${width / 2}, ${height / 2})`}>
       <g>
-        {root.links().map((it, i) => <TopoPath key={i} d={linkGenerator(it as any) as string} />)}
+        {root.links().map((it, i) => {
+          console.log(it);
+          return <TopoPath key={i} d={linkGenerator(it as any) as string} />;
+        })}
       </g>
       <g>
-        {root.descendants().map((it, i) => {
+        {reorder(root.descendants(), (it) => it.id).map((it, i) => {
           const nodeId = (it.data as [string, string])[0];
           if (nodeId in mappedSubTopology) {
             const node = mappedSubTopology[nodeId];

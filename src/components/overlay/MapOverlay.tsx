@@ -6,6 +6,7 @@ import mapboxgl from 'mapbox-gl';
 import MapControls from './MapControls';
 import useRoutingMVNodeId from '../../hooks/useRoutingMVNodeId';
 import EventList from './EventList';
+import { Event as EventType } from '../../events';
 import Event from './Event';
 
 type Props = {
@@ -19,17 +20,17 @@ const Overlay = styled.div`
   z-index: 1000;
 `;
 
-const OverlayContent = styled.div``;
-
 const MapOverlay: React.FunctionComponent<Props> = ({ map }) => {
 
   const [events] = useGlobal('events');
-  const [highlightEvent, setHighlightedEvent] = useGlobal('highlightedEvent');
+  const [, setHighlightedEvent] = useGlobal('highlightedEvent');
   const currentMvId = useRoutingMVNodeId();
 
-  const displayedEvents = useMemo(() => {
-    if (currentMvId === null) return events;
-    return events.filter((it) => it.mvNodes.includes(currentMvId));
+  const [past, future] = useMemo(() => {
+    let baseEvents = (currentMvId === null) ? events : events.filter((it) => it.mvNodes.includes(currentMvId));
+    const before = baseEvents.filter((it) => it.start < Date.now());
+    const after = baseEvents.filter((it) => it.start > Date.now());
+    return [before, after];
   }, [currentMvId, events]);
 
   return (
@@ -39,11 +40,12 @@ const MapOverlay: React.FunctionComponent<Props> = ({ map }) => {
           <div>
             <div>
               <EventList title="Current events">
-                {displayedEvents.map(it => <Event event={it} key={it.eventId} onMouseOver={() => setHighlightedEvent(it.eventId)} onMouseOut={() => setHighlightedEvent(null)} />)}
+                {past.map(it => <Event event={it} key={it.eventId} onMouseOver={() => setHighlightedEvent(it.eventId)} onMouseOut={() => setHighlightedEvent(null)} />)}
               </EventList>
             </div>
             <div className="mt-2">
               <EventList title="Upcoming events">
+                {future.map(it => <Event event={it} key={it.eventId} onMouseOver={() => setHighlightedEvent(it.eventId)} onMouseOut={() => setHighlightedEvent(null)} />)}
               </EventList>
             </div>
           </div>

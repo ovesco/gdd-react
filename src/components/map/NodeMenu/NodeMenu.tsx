@@ -33,7 +33,7 @@ const NodeMenu: React.FunctionComponent<Props> = ({ node, children }) => {
   const titleRef = useRef<SVGTextElement>(null);
   const dim = useSvgDimensions(titleRef);
   const btnsHeight = useMemo(() => {
-    return Array.isArray(children) ? children.filter((it) => Array.isArray(it) ? it.length > 0 : true).length * 35 : 35;
+    return Array.isArray(children) ? children.map((it) => Array.isArray(it) ? it.length : 1).reduce((a, b) => a + b) * 35 : 35;
   }, [children]);
 
   return (
